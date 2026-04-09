@@ -1,0 +1,16 @@
+name: security-scans
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+concurrency:
+  group: ci-security-scans-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  code-scans:
+    uses: pintu-crypto/ci-security/.github/workflows/code-scans.yml@main
+    secrets: inherit
